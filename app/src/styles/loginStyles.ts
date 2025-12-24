@@ -16,14 +16,14 @@ export const loginStyles = StyleSheet.create({
     marginBottom: 32,
   },
   logo: {
-    width: '80%',
-    height: 200,
+    width: '150%',
+    height: 230,
   },
   formContainer: {
     paddingHorizontal: 16,
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#111827',
     marginBottom: 4,
@@ -34,12 +34,12 @@ export const loginStyles = StyleSheet.create({
     marginBottom: 24,
   },
   forgotPassword: {
-    alignSelf: 'flex-start',
+    alignSelf: 'flex-end',
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: '#2D7E3E',
-    fontSize: 13,
+    color: '#111827',
+    fontSize: 14,
     fontWeight: '500',
   },
   buttonRow: {

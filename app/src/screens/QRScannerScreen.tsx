@@ -29,20 +29,9 @@ export const QRScannerScreen: React.FC<QRScannerScreenProps> = ({ navigation }) 
 
   const handleBarCodeScanned = ({ type, data }: { type: string; data: string }) => {
     setScanned(true);
-    Alert.alert(
-      'QR Code Scanned',
-      `Type: ${type}\nData: ${data}`,
-      [
-        {
-          text: 'Scan Again',
-          onPress: () => setScanned(false),
-        },
-        {
-          text: 'OK',
-          onPress: () => navigation.goBack(),
-        },
-      ]
-    );
+    // You might want to pass the scanned data to the next screen if needed
+    // navigation.navigate('TeeAccess', { qrData: data });
+    navigation.navigate('TeeAccess');
   };
 
   const handleClose = () => {
@@ -62,7 +51,7 @@ export const QRScannerScreen: React.FC<QRScannerScreenProps> = ({ navigation }) 
       <View style={qrScannerStyles.permissionContainer}>
         <MaterialIcons name="camera-alt" size={64} color="#6B7280" />
         <Text style={qrScannerStyles.permissionText}>Camera permission denied</Text>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={qrScannerStyles.goBackButton}
           onPress={handleClose}
         >
@@ -84,17 +73,17 @@ export const QRScannerScreen: React.FC<QRScannerScreenProps> = ({ navigation }) 
           barcodeTypes: ['qr'],
         }}
       />
-      
+
       <View style={qrScannerStyles.overlay}>
         <View style={qrScannerStyles.overlayContent}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={qrScannerStyles.closeButton}
             onPress={handleClose}
           >
             <MaterialIcons name="close" size={32} color="#FFFFFF" />
           </TouchableOpacity>
 
-          <View 
+          <View
             style={[qrScannerStyles.scanArea, {
               width: scanAreaSize,
               height: scanAreaSize,

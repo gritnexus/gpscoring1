@@ -2,12 +2,14 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LoginScreen } from '../screens/LoginScreen';
 import { QRScannerScreen } from '../screens/QRScannerScreen';
+import { TeeAccessScreen } from '../screens/TeeAccessScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { useAuth } from '../hooks/useAuth';
 
 export type AuthStackParamList = {
   Login: undefined;
   QRScanner: undefined;
+  TeeAccess: undefined;
 };
 
 export type AppStackParamList = {
@@ -25,13 +27,14 @@ const AuthNavigator = () => {
       }}
     >
       <AuthStack.Screen name="Login" component={LoginScreen} />
-      <AuthStack.Screen 
-        name="QRScanner" 
+      <AuthStack.Screen
+        name="QRScanner"
         component={QRScannerScreen}
         options={{
           presentation: 'modal',
         }}
       />
+      <AuthStack.Screen name="TeeAccess" component={TeeAccessScreen} />
     </AuthStack.Navigator>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Text, StyleSheet, ViewStyle } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface InputProps {
@@ -11,6 +11,7 @@ interface InputProps {
   icon?: keyof typeof MaterialIcons.glyphMap;
   error?: string;
   editable?: boolean;
+  containerStyle?: ViewStyle;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -22,17 +23,18 @@ export const Input: React.FC<InputProps> = ({
   icon,
   error,
   editable = true,
+  containerStyle,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const containerStyle = [
+  const finalContainerStyle = [
     styles.container,
     error ? styles.containerError : isFocused ? styles.containerFocused : styles.containerDefault
   ];
 
   return (
-    <View style={styles.wrapper}>
-      <View style={containerStyle}>
+    <View style={[styles.wrapper, containerStyle]}>
+      <View style={finalContainerStyle}>
         {icon && (
           <MaterialIcons
             name={icon}

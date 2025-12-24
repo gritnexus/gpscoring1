@@ -9,7 +9,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import { StyleSheet } from 'react-native';
+
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { validateEmail, validateRequired } from '../utils/validators';
@@ -73,23 +73,23 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+      style={loginStyles.container}
     >
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={loginStyles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.logoContainer}>
+        <View style={loginStyles.logoContainer}>
           <Image
             source={require('../../assets/logo.png')}
-            style={styles.logo}
+            style={loginStyles.logo}
             resizeMode="contain"
           />
         </View>
 
-        <View style={styles.formContainer}>
-          <Text style={styles.title}>Login</Text>
-          <Text style={styles.subtitle}>Please Sign in to continue.</Text>
+        <View style={loginStyles.formContainer}>
+          <Text style={loginStyles.title}>Login</Text>
+          <Text style={loginStyles.subtitle}>Please Sign in to continue.</Text>
 
           <Input
             placeholder="E-mail"
@@ -109,20 +109,20 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             error={passwordError}
           />
 
-          <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+          <TouchableOpacity style={loginStyles.forgotPassword}>
+            <Text style={loginStyles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
 
-          <View style={styles.buttonRow}>
+          <View style={loginStyles.buttonRow}>
             <Button
               title="Login"
               onPress={handleLogin}
               loading={isLoading}
-              style={styles.loginButton}
+              style={loginStyles.loginButton}
             />
 
             <TouchableOpacity
-              style={styles.qrButton}
+              style={loginStyles.qrButton}
               onPress={handleQRScan}
               disabled={isLoading}
             >
@@ -134,65 +134,3 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F3F4F6',
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'flex-start',
-    paddingHorizontal: 24,
-    paddingTop: 80,
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  logo: {
-    width: '150%',
-    height: 230,
-  },
-  formContainer: {
-    paddingHorizontal: 16,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#111827',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginBottom: 24,
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
-    marginBottom: 24,
-  },
-  forgotPasswordText: {
-    color: '#111827',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 32,
-  },
-  loginButton: {
-    flex: 1,
-  },
-  qrButton: {
-    width: 52,
-    height: 52,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#D1D5DB',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
