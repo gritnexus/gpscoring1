@@ -12,6 +12,7 @@ import {
 
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { Snackbar } from '../components/Snackbar';
 import { validateEmail, validateRequired } from '../utils/validators';
 import { authService } from '../services/authService';
 import { useAuth } from '../hooks/useAuth';
@@ -28,6 +29,11 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarType, setSnackbarType] = useState<'success' | 'error' | 'info'>('info');
+
   const { login } = useAuth();
 
   const handleLogin = async () => {
@@ -57,10 +63,19 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       const response = await authService.login({ email, password });
       await login(response.token, response.user);
     } catch (error: any) {
-      Alert.alert(
-        'Login Failed',
-        error.response?.data?.message || 'Invalid email or password. Please try again.'
-      );
+      let errorMessage = 'Invalid email or password. Please try again.';
+
+      if (error.response) {
+        // Server responded with a message
+        errorMessage = error.response.data?.message || errorMessage;
+      } else if (error.request) {
+        // Network error (Server down or unreachable)
+        errorMessage = 'Network Error: Cannot connect to server. Please ensure the backend is running.';
+      }
+
+      setSnackbarMessage(errorMessage);
+      setSnackbarType('error');
+      setSnackbarVisible(true);
     } finally {
       setIsLoading(false);
     }
@@ -131,6 +146,12 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+      <Snackbar
+        visible={snackbarVisible}
+        message={snackbarMessage}
+        type={snackbarType}
+        onDismiss={() => setSnackbarVisible(false)}
+      />
     </KeyboardAvoidingView>
   );
 };

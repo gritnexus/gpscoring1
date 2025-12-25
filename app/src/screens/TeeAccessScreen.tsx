@@ -12,8 +12,10 @@ import {
 } from 'react-native';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { Snackbar } from '../components/Snackbar';
 import { teeAccessStyles } from '../styles/teeAccessStyles';
 import { MaterialIcons } from '@expo/vector-icons';
+import { teeAccessService } from '../services/teeAccessService';
 
 interface TeeAccessScreenProps {
     navigation: any;
@@ -38,9 +40,40 @@ export const TeeAccessScreen: React.FC<TeeAccessScreenProps> = ({ navigation }) 
     const [showGenderModal, setShowGenderModal] = useState(false);
     const [showHandicapModal, setShowHandicapModal] = useState(false);
 
-    const handleTeeOff = () => {
-        // Handle form submission logic here
-        console.log({ fullName, phoneNumber, gender, handicap });
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarType, setSnackbarType] = useState<'success' | 'error' | 'info'>('info');
+
+    const handleTeeOff = async () => {
+        if (!fullName || !phoneNumber || !gender || !handicap) {
+            setSnackbarMessage('Please fill in all fields');
+            setSnackbarType('error');
+            setSnackbarVisible(true);
+            return;
+        }
+
+        try {
+            await teeAccessService.submitTeeAccess({
+                fullName,
+                phoneNumber,
+                gender,
+                handicap
+            });
+            setSnackbarMessage('Tee Access submitted successfully!');
+            setSnackbarType('success');
+            setSnackbarVisible(true);
+            // Optional: Navigate away or reset form
+        } catch (error: any) {
+            let errorMessage = 'Failed to submit Tee Access';
+            if (error.response) {
+                errorMessage = error.response.data?.message || errorMessage;
+            } else if (error.request) {
+                errorMessage = 'Network Error: Cannot connect to server.';
+            }
+            setSnackbarMessage(errorMessage);
+            setSnackbarType('error');
+            setSnackbarVisible(true);
+        }
     };
 
     const renderOption = (item: string, selected: string, onSelect: (val: string) => void) => (
@@ -195,6 +228,13 @@ export const TeeAccessScreen: React.FC<TeeAccessScreenProps> = ({ navigation }) 
                 </Modal>
 
             </ScrollView>
+
+            <Snackbar
+                visible={snackbarVisible}
+                message={snackbarMessage}
+                type={snackbarType}
+                onDismiss={() => setSnackbarVisible(false)}
+            />
         </KeyboardAvoidingView>
     );
 };

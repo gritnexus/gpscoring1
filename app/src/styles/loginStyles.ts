@@ -8,16 +8,18 @@ export const loginStyles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'flex-start',
-    paddingHorizontal: 24,
-    paddingTop: 80,
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 24,
   },
   logoContainer: {
     alignItems: 'center',
     marginBottom: 32,
   },
   logo: {
-    width: '150%',
-    height: 230,
+    width: '100%',
+    height: 180,
+    maxWidth: 300,
   },
   formContainer: {
     paddingHorizontal: 16,

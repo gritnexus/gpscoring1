@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://your-api-url.com/api';
+const API_BASE_URL = 'http://192.168.0.104:5000/api';
 
 export interface LoginCredentials {
   email: string;

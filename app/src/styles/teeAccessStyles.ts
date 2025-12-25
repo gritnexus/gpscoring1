@@ -9,19 +9,20 @@ export const teeAccessStyles = StyleSheet.create({
     },
     scrollContent: {
         flexGrow: 1,
-        paddingHorizontal: 24,
-        paddingTop: 30,
-        paddingBottom: 40,
+        paddingHorizontal: 20,
+        paddingTop: 24,
+        paddingBottom: 32,
         alignItems: 'center',
     },
     imageContainer: {
         width: '100%',
         alignItems: 'center',
-        marginBottom: 24,
+        marginBottom: 20,
     },
     illustration: {
-        width: '150%',
-        height: 230,
+        width: '100%',
+        height: 180,
+        maxWidth: 300,
     },
     titleContainer: {
         width: '100%',

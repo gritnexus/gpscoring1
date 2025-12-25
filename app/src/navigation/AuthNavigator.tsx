@@ -4,6 +4,10 @@ import { LoginScreen } from '../screens/LoginScreen';
 import { QRScannerScreen } from '../screens/QRScannerScreen';
 import { TeeAccessScreen } from '../screens/TeeAccessScreen';
 import { HomeScreen } from '../screens/HomeScreen';
+import { EventInfoScreen } from '../screens/EventInfoScreen';
+import { ScoreCardScreen } from '../screens/ScoreCardScreen';
+import { LeaderboardScreen } from '../screens/LeaderboardScreen';
+import { ChatScreen } from '../screens/ChatScreen';
 import { useAuth } from '../hooks/useAuth';
 
 export type AuthStackParamList = {
@@ -14,6 +18,10 @@ export type AuthStackParamList = {
 
 export type AppStackParamList = {
   Home: undefined;
+  EventInfo: undefined;
+  ScoreCard: undefined;
+  Leaderboard: undefined;
+  Chat: undefined;
 };
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -44,9 +52,15 @@ const AppNavigator = () => {
     <AppStack.Navigator
       screenOptions={{
         headerShown: false,
+        animation: 'fade', // Smooth fade transition
+        animationDuration: 200, // Fast and smooth
       }}
     >
       <AppStack.Screen name="Home" component={HomeScreen} />
+      <AppStack.Screen name="EventInfo" component={EventInfoScreen} />
+      <AppStack.Screen name="ScoreCard" component={ScoreCardScreen} />
+      <AppStack.Screen name="Leaderboard" component={LeaderboardScreen} />
+      <AppStack.Screen name="Chat" component={ChatScreen} />
     </AppStack.Navigator>
   );
 };
